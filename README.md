@@ -12,6 +12,11 @@ docker-compose up -d
 
 ## Configure PgAdmin 4
 
+```
+Email: intelcia@postgres.com
+Password: postgres
+```
+
 ![image](configure-pgadmin.png)
 
 - Launch pgAdmin 4 (http://localhost:8080)
