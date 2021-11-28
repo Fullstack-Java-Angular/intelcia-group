@@ -25,3 +25,15 @@ CREATE TABLE salarie(
     pole_competence_id REFERENCES pole_competence(_numero),
     division_id REFERENCES division(_numero)
 ); 
+
+--materiel
+
+--tache
+
+--salarie_tache
+
+--projet 
+
+--client
+
+--client_projet 
