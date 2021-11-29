@@ -27,13 +27,54 @@ CREATE TABLE salarie(
 ); 
 
 --materiel
-
+CREATE TABLE materiel(
+    _numero SERIAL PRIMARY KEY,
+    nom varchar(255),
+    m_type varchar(255),
+    reference_constructeur varchar(255),
+    salarie_matricule bigint REFERENCES salarie(_matricule)
+);
 --tache
-
+CREATE TABLE tache(
+    _numero SERIAL PRIMARY KEY,
+    nom varchar(255),
+    cout double precision,
+);
 --salarie_tache
+CREATE TABLE salarie_tache(
+    salarie_matricule bigint REFERENCES salarie(_matricule),
+    tache_numero SERIAL REFERENCES tache(_numero),
+    d_debut date,
+    d_fin date,
+    PRIMARY KEY(salarie_matricule,tache_numero)
+);
 
 --projet 
+CREATE TABLE projet(
+    _numero SERIAL PRIMARY KEY,
+    appellation varchar(255),
+    theme varchar(255),
+    d_debut date,
+    d_fin date,
 
+);
 --client
-
+CREATE TABLE client(
+    _numero SERIAL PRIMARY KEY,
+    activite varchar(255),
+    ville varchar(255),
+    code_postal varchar(255),
+    pays varchar(255),
+    nom varchar(255),
+    fonction varchar(255),
+    email varchar(255),
+    telephone varchar(255),
+    fax varchar(255)
+);
 --client_projet 
+CREATE TABLE client_projet(
+    client_numero REFERENCES client(_numero)
+    projet_numero REFERENCES projet(_numero)
+    date_echeance date,
+    PRIMARY KEY (client_numero,projet_numero)
+);
