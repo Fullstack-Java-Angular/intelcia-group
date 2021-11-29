@@ -22,8 +22,8 @@ CREATE TABLE salarie(
     ville var(255),
     code_postal varchar(255),
     pays varchar(255),
-    pole_competence_id REFERENCES pole_competence(_numero),
-    division_id REFERENCES division(_numero)
+    pole_competence_id SERIAL NOT NULL REFERENCES pole_competence(_numero),
+    division_id SERIAL REFERENCES division(_numero)
 ); 
 
 --materiel
@@ -42,8 +42,8 @@ CREATE TABLE tache(
 );
 --salarie_tache
 CREATE TABLE salarie_tache(
-    salarie_matricule bigint REFERENCES salarie(_matricule),
-    tache_numero SERIAL REFERENCES tache(_numero),
+    salarie_matricule bigint REFERENCES NOT NULL salarie(_matricule),
+    tache_numero SERIAL REFERENCES NOT NULL tache(_numero),
     d_debut date,
     d_fin date,
     PRIMARY KEY(salarie_matricule,tache_numero)
@@ -73,8 +73,8 @@ CREATE TABLE client(
 );
 --client_projet 
 CREATE TABLE client_projet(
-    client_numero REFERENCES client(_numero)
-    projet_numero REFERENCES projet(_numero)
+    client_numero SERIAL REFERENCES NOT NULL, client(_numero),
+    projet_numero REFERENCES NOT NULL projet(_numero),
     date_echeance date,
     PRIMARY KEY (client_numero,projet_numero)
 );
