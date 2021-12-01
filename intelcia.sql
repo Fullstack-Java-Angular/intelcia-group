@@ -19,6 +19,7 @@ CREATE TABLE salarie(
     nom varchar(255),
     salaire integer,
     comission double precision,
+    chef bigint REFERENCES salarie(_matricule),
     ville var(255),
     code_postal varchar(255),
     pays varchar(255),
@@ -32,6 +33,7 @@ CREATE TABLE materiel(
     nom varchar(255),
     m_type varchar(255),
     reference_constructeur varchar(255),
+    contient SERIAL REFERENCES materiel(_numero),
     salarie_matricule bigint REFERENCES salarie(_matricule)
 );
 --tache
