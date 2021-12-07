@@ -20,11 +20,11 @@ CREATE TABLE salarie(
     salaire integer,
     comission double precision,
     chef bigint REFERENCES salarie(_matricule),
-    ville var(255),
+    ville varchar(255),
     code_postal varchar(255),
     pays varchar(255),
     pole_competence_id SERIAL NOT NULL REFERENCES pole_competence(_numero),
-    division_id SERIAL REFERENCES division(_numero)
+    division_id SERIAL NOT NULL REFERENCES division(_numero)
 ); 
 
 --materiel
@@ -40,12 +40,12 @@ CREATE TABLE materiel(
 CREATE TABLE tache(
     _numero SERIAL PRIMARY KEY,
     nom varchar(255),
-    cout double precision,
+    cout double precision
 );
 --salarie_tache
 CREATE TABLE salarie_tache(
-    salarie_matricule bigint REFERENCES NOT NULL salarie(_matricule),
-    tache_numero SERIAL REFERENCES NOT NULL tache(_numero),
+    salarie_matricule bigint NOT NULL REFERENCES  salarie(_matricule),
+    tache_numero SERIAL NOT NULL REFERENCES tache(_numero),
     d_debut date,
     d_fin date,
     PRIMARY KEY(salarie_matricule,tache_numero)
@@ -57,7 +57,7 @@ CREATE TABLE projet(
     appellation varchar(255),
     theme varchar(255),
     d_debut date,
-    d_fin date,
+    d_fin date
 
 );
 --client
@@ -75,8 +75,8 @@ CREATE TABLE client(
 );
 --client_projet 
 CREATE TABLE client_projet(
-    client_numero SERIAL REFERENCES NOT NULL, client(_numero),
-    projet_numero REFERENCES NOT NULL projet(_numero),
-    date_echeance date,
-    PRIMARY KEY (client_numero,projet_numero)
+    client_numero SERIAL NOT NULL REFERENCES client(_numero),
+    projet_numero SERIAL NOT NULL REFERENCES projet(_numero),
+    PRIMARY KEY (client_numero,projet_numero),
+     date_echeance date
 );
