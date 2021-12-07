@@ -1,11 +1,25 @@
---division 
+--role
+CREATE TABLE [role] (
+    _numero SERIAL PRIMARY KEY,
+    nom varchar(255),
+);
+
+--addresse
+CREATE TABLE addresse (
+    _numero SERIAL PRIMARY KEY,
+    code_postal varchar(255),
+    ville varchar(255),
+    pays varchar(255)
+);
+
+--division
 CREATE TABLE division(
     _numero SERIAL PRIMARY KEY,
     nom varchar(255),
     CA double precision,
-    ville varchar(255),
-    pays varchar(255)
+    addresse SERIAL REFERENCES addresse(_numero),
 );
+
 -- pole competence
 CREATE TABLE pole_competence(
     _numero SERIAL PRIMARY KEY,
@@ -19,13 +33,12 @@ CREATE TABLE salarie(
     nom varchar(255),
     salaire integer,
     comission double precision,
+    [role] SERIAL REFERENCES role(_numero),
     chef bigint REFERENCES salarie(_matricule),
-    ville varchar(255),
-    code_postal varchar(255),
-    pays varchar(255),
+    addresse SERIAL REFERENCES addresse(_numero),
     pole_competence_id SERIAL NOT NULL REFERENCES pole_competence(_numero),
     division_id SERIAL NOT NULL REFERENCES division(_numero)
-); 
+);
 
 --materiel
 CREATE TABLE materiel(
@@ -51,7 +64,7 @@ CREATE TABLE salarie_tache(
     PRIMARY KEY(salarie_matricule,tache_numero)
 );
 
---projet 
+--projet
 CREATE TABLE projet(
     _numero SERIAL PRIMARY KEY,
     appellation varchar(255),
@@ -64,16 +77,14 @@ CREATE TABLE projet(
 CREATE TABLE client(
     _numero SERIAL PRIMARY KEY,
     activite varchar(255),
-    ville varchar(255),
-    code_postal varchar(255),
-    pays varchar(255),
+    addresse SERIAL REFERENCES addresse(_numero),
     nom varchar(255),
     fonction varchar(255),
     email varchar(255),
     telephone varchar(255),
     fax varchar(255)
 );
---client_projet 
+--client_projet
 CREATE TABLE client_projet(
     client_numero SERIAL NOT NULL REFERENCES client(_numero),
     projet_numero SERIAL NOT NULL REFERENCES projet(_numero),
