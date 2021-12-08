@@ -1,5 +1,5 @@
 --role
-CREATE TABLE [role] (
+CREATE TABLE "role" (
     _numero SERIAL PRIMARY KEY,
     nom varchar(255),
 );
@@ -33,12 +33,25 @@ CREATE TABLE salarie(
     nom varchar(255),
     salaire integer,
     comission double precision,
-    [role] SERIAL REFERENCES role(_numero),
-    chef bigint REFERENCES salarie(_matricule),
+    "role" SERIAL REFERENCES role(_numero),
     addresse SERIAL REFERENCES addresse(_numero),
     pole_competence_id SERIAL NOT NULL REFERENCES pole_competence(_numero),
     division_id SERIAL NOT NULL REFERENCES division(_numero)
 );
+
+--Chef
+CREATE TABLE Chef (
+    salaries_id bigint NOT NULL REFERENCES salarie(_matricule),
+) INHERITS (salarie);
+
+--IT
+CREATE TABLE IT (
+    -- Columns
+) INHERITS (salarie);
+--IT
+CREATE TABLE RH (
+    -- Columns
+) INHERITS (salarie);
 
 --materiel
 CREATE TABLE materiel(
